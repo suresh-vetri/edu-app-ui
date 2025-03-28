@@ -1,6 +1,8 @@
 pipeline {
     agent any
-
+tools {
+  nodejs "NodeJS_22"
+}
     environment {
         NODE_VERSION = '22.x' // Specify the Node.js version
     }
