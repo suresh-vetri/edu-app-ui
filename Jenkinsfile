@@ -17,8 +17,8 @@ tools {
         stage('Install Node.js') {
             steps {
                 script {
-                    sh 'curl -sL https://deb.nodesource.com/setup_${NODE_VERSION} | bash -'
-                    sh 'apt-get install -y nodejs'
+                    sh 'npm install -g n'
+                    sh 'n $NODE_VERSION'
                 }
             }
         }
