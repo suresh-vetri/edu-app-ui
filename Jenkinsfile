@@ -16,7 +16,11 @@ tools {
 
         stage('Install Dependencies') {
             steps {
-                    echo 'node -v'
+                    script {
+                    echo '${NODE_VERSION}' 
+                    sh 'curl -sL https://deb.nodesource.com/setup_22.x | bash -'
+                    sh 'apt-get install -y nodejs'
+                }
             }
         }
 
