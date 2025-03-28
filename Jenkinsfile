@@ -16,9 +16,7 @@ tools {
 
         stage('Install Dependencies') {
             steps {
-                script {
                     echo ${NODE_VERSION}
-                }
             }
         }
 
