@@ -1,8 +1,5 @@
 pipeline {
     agent any
-tools {
-  nodejs "NodeJS_22"
-}
     environment {
         NODE_VERSION = '22.x' // Specify the Node.js version
     }
@@ -16,10 +13,15 @@ tools {
 
         stage('Install Dependencies') {
             steps {
-                    script {
-                    echo '${NODE_VERSION}' 
-                    sh 'curl -sL https://deb.nodesource.com/setup_22.x | bash -'
-                    sh 'apt-get install -y nodejs'
+                script {
+                    // Install Node.js using nvm
+                    sh '''
+                    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash
+                    export NVM_DIR="$HOME/.nvm"
+                    [ -s "$NVM_DIR/nvm.sh" ] && \\. "$NVM_DIR/nvm.sh"
+                    nvm install ${NODE_VERSION}
+                    nvm use ${NODE_VERSION}
+                    '''
                 }
             }
         }
