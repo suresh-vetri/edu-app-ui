@@ -14,15 +14,6 @@ tools {
             }
         }
 
-        stage('Install Node.js') {
-            steps {
-                script {
-                    sh 'npm install -g n'
-                    sh 'n $NODE_VERSION'
-                }
-            }
-        }
-
         stage('Install Dependencies') {
             steps {
                 sh 'npm install'
