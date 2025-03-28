@@ -16,7 +16,9 @@ tools {
 
         stage('Install Dependencies') {
             steps {
-                sh 'npm install'
+                script {
+                    echo ${NODE_VERSION}
+                }
             }
         }
 
