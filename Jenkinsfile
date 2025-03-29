@@ -24,7 +24,7 @@ pipeline {
 
         stage('Build') {
             steps {
-                 bat 'npm run build -- --prod'
+                 bat 'npm run build'
                   echo 'build completed.'
             }
         }
