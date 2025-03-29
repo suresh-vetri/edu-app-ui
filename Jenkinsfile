@@ -17,14 +17,14 @@ pipeline {
 
         stage('Install Dependencies') {
             steps {
-                       sh 'npm install'
+                        bat 'npm install'
                         echo 'installation completed.'
             }
         }
 
         stage('Build') {
             steps {
-                 sh 'npm run build -- --prod'
+                 bat 'npm run build -- --prod'
                   echo 'build completed.'
             }
         }
