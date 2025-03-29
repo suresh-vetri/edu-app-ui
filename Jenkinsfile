@@ -5,7 +5,7 @@ pipeline {
         nodejs 'Node' // Use the NodeJS version configured in Jenkins
     }
     environment {
-        DOCKER_IMAGE = 'innovative-edu-ui:latest // Name and tag for the Docker image
+        DOCKER_IMAGE = 'innovative-edu-ui:latest' // Name and tag for the Docker image
     }
 
     stages {
