@@ -17,7 +17,7 @@ pipeline {
             steps {
                 script {
                     // Build the Docker image
-                    bat 'docker build -t ${DOCKER_IMAGE} .'
+                    bat 'docker build -t %DOCKER_IMAGE% .'
                 }
             }
         }
@@ -26,7 +26,7 @@ pipeline {
             steps {
                 script {
                     // Run the Docker image
-                    bat 'docker run -d -p 4200:4200 ${DOCKER_IMAGE}'
+                    bat 'docker run -d -p 4200:4200 %DOCKER_IMAGE%'
                 }
             }
         }
@@ -35,7 +35,7 @@ pipeline {
             steps {
                 script {
                     // Clean up the running Docker container after the build
-                    bat 'docker ps -a -q --filter "ancestor=${DOCKER_IMAGE}" | xargs docker rm -f'
+                    bat 'docker ps -a -q --filter "ancestor=%DOCKER_IMAGE%" | xargs docker rm -f'
                 }
             }
         }
