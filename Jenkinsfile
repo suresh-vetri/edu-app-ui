@@ -1,19 +1,40 @@
 pipeline {
     agent any
 
+  tools {
+        nodejs 'Node' // Use the NodeJS version configured in Jenkins
+    }
     environment {
-        DOCKER_IMAGE = 'learn-devops'
+        DOCKER_IMAGE = 'innovative-edu-ui:latest // Name and tag for the Docker image
     }
 
     stages {
-        stage('Checkout') {
+        stage('Clone Repository') {
             steps {
-                // Checkout the code from your repository
                 git branch: 'main', url: 'https://github.com/suresh-vetri/edu-app-ui.git'
             }
         }
 
-        stage('Build Docker Image') {
+        stage('Install Dependencies') {
+            steps {
+                        bat 'npm install'
+                        echo 'installation completed.'
+            }
+        }
+
+        stage('Build') {
+            steps {
+                 bat 'npm run build'
+                  echo 'build completed.'
+            }
+        }
+
+        stage('Package') {
+            steps {
+                archiveArtifacts artifacts: 'dist/**', fingerprint: true
+            }
+        }
+      stage('Build Docker Image') {
             steps {
                 script {
                     // Build the Docker image
@@ -21,23 +42,29 @@ pipeline {
                 }
             }
         }
-
-        stage('Run Docker Image') {
+      stage('Push Docker Image') {
             steps {
                 script {
-                    // Run the Docker image
-                    bat 'docker run -d -p 4200:4200 %DOCKER_IMAGE%'
+                    // Push the Docker image to a Docker registry (optional)
+                    // Replace 'your-docker-registry' with your Docker registry URL
+                    bat '''
+                    docker tag $DOCKER_IMAGE http://localhost:8088//$DOCKER_IMAGE
+                    docker push http://localhost:8088/$DOCKER_IMAGE
+                    '''
                 }
             }
         }
+    }
 
-        stage('Clean Up') {
-            steps {
-                script {
-                    // Clean up the running Docker container after the build
-                    bat 'docker ps -a -q --filter "ancestor=%DOCKER_IMAGE%" | xargs docker rm -f'
-                }
-            }
+    post {
+        always {
+            echo 'Pipeline execution completed.'
+        }
+        success {
+            echo 'Build succeeded!'
+        }
+        failure {
+            echo 'Build failed!'
         }
     }
 }
