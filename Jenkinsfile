@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        DOCKER_IMAGE = 'angular-app:latest'
+        DOCKER_IMAGE = 'learn-devops'
     }
 
     stages {
