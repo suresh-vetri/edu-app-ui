@@ -47,8 +47,9 @@ pipeline {
                 script {
                     // Push the Docker image to a Docker registry (optional)
                     // Replace 'your-docker-registry' with your Docker registry URL
-                    bat 'docker tag $DOCKER_IMAGE http://localhost:8088//$DOCKER_IMAGE'
-                    bat 'docker push http://localhost:8088/$DOCKER_IMAGE'
+                    bat 'docker tag innovative-edu-ui localhost:5000/innovative-edu-ui'
+                    bat 'docker localhost:5000/innovative-edu-ui'
+                    bat 'docker pull localhost:5000/innovative-edu-ui'
                 }
             }
         }
