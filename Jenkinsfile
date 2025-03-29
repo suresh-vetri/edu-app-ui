@@ -47,10 +47,8 @@ pipeline {
                 script {
                     // Push the Docker image to a Docker registry (optional)
                     // Replace 'your-docker-registry' with your Docker registry URL
-                    bat '''
-                    docker tag $DOCKER_IMAGE http://localhost:8088//$DOCKER_IMAGE
-                    docker push http://localhost:8088/$DOCKER_IMAGE
-                    '''
+                    bat 'docker tag $DOCKER_IMAGE http://localhost:8088//$DOCKER_IMAGE'
+                    bat 'docker push http://localhost:8088/$DOCKER_IMAGE'
                 }
             }
         }
