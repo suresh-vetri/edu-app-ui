@@ -13,10 +13,8 @@ pipeline {
 
         stage('Install Dependencies') {
             steps {
-                nodejs('NodeJS_22) {
                        echo 'build application',
                        sh 'npm install'
-                }
             }
         }
 
