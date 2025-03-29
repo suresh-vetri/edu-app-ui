@@ -32,7 +32,7 @@ pipeline {
         stage('Package') {
             steps {
                 archiveArtifacts artifacts: 'dist/**', fingerprint: true
-                bat 'ls -R dist'
+                bat 'dir /s dist'
             }
         }
       stage('Build Docker Image') {
