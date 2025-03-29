@@ -9,7 +9,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 // Checkout the code from your repository
-                git 'https://github.com/suresh-vetri/edu-app-ui.git'
+                git branch: 'main', url: 'https://github.com/suresh-vetri/edu-app-ui.git'
             }
         }
 
