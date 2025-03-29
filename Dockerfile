@@ -1,11 +1,11 @@
 # Set the working directory inside the container
-WORKDIR /app
+WORKDIR /learn-devops
 
 # Step 2: Use Nginx to serve the built Angular application
 FROM nginx:alpine
 
 # Copy the built Angular files from the previous stage to the Nginx web root
-COPY C:/ProgramData/Jenkins/.jenkins/workspace/learn-devops/dist/edu-app-ui/browser /usr/share/nginx/html
+COPY --from=build learn-devops/dist/edu-app-ui /usr/share/nginx/html
 
 # Expose port 80 to serve the application
 EXPOSE 80
