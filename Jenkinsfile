@@ -1,50 +1,43 @@
 pipeline {
     agent any
 
-  tools {
-        nodejs 'Node' // Use the NodeJS version configured in Jenkins
-    }
     environment {
-        NODE_VERSION = '22.x' // Specify the Node.js version
+        DOCKER_IMAGE = 'angular-app:latest'
     }
 
     stages {
-        stage('Clone Repository') {
+        stage('Checkout') {
             steps {
-                git branch: 'main', url: 'https://github.com/suresh-vetri/edu-app-ui.git'
+                // Checkout the code from your repository
+                git 'https://github.com/suresh-vetri/edu-app-ui.git'
             }
         }
 
-        stage('Install Dependencies') {
+        stage('Build Docker Image') {
             steps {
-                        bat 'npm install'
-                        echo 'installation completed.'
+                script {
+                    // Build the Docker image
+                    bat 'docker build -t $DOCKER_IMAGE .'
+                }
             }
         }
 
-        stage('Build') {
+        stage('Run Docker Image') {
             steps {
-                 bat 'npm run build'
-                  echo 'build completed.'
+                script {
+                    // Run the Docker image
+                    bat 'docker run -d -p 4200:4200 $DOCKER_IMAGE'
+                }
             }
         }
 
-        stage('Package') {
+        stage('Clean Up') {
             steps {
-                archiveArtifacts artifacts: 'dist/**', fingerprint: true
+                script {
+                    // Clean up the running Docker container after the build
+                    bat 'docker ps -a -q --filter "ancestor=$DOCKER_IMAGE" | xargs docker rm -f'
+                }
             }
-        }
-    }
-
-    post {
-        always {
-            echo 'Pipeline execution completed.'
-        }
-        success {
-            echo 'Build succeeded!'
-        }
-        failure {
-            echo 'Build failed!'
         }
     }
 }
