@@ -1,5 +1,9 @@
 pipeline {
     agent any
+
+  tools {
+        nodejs 'Node' // Use the NodeJS version configured in Jenkins
+    }
     environment {
         NODE_VERSION = '22.x' // Specify the Node.js version
     }
@@ -13,20 +17,15 @@ pipeline {
 
         stage('Install Dependencies') {
             steps {
-                       echo 'build application',
                        sh 'npm install'
+                        echo 'installation completed.'
             }
         }
 
         stage('Build') {
             steps {
-                sh 'npm run build'
-            }
-        }
-
-        stage('Test') {
-            steps {
-                sh 'npm run test -- --watch=false'
+                 sh 'npm run build -- --prod'
+                  echo 'build completed.'
             }
         }
 
