@@ -38,7 +38,7 @@ pipeline {
             steps {
                 script {
                     // Build the Docker image
-                    bat 'docker build -t .'
+                    bat 'docker build -t innovative-edu-ui .'
                 }
             }
         }
