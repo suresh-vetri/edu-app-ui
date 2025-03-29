@@ -1,5 +1,5 @@
 # Set the working directory inside the container
-WORKDIR /learn-devops
+WORKDIR /learn-devop
 
 # Step 2: Use Nginx to serve the built Angular application
 FROM nginx:alpine
